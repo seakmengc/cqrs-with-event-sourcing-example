@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
 
-            $table->uuid();
+            $table->uuid()->unique();
 
             $table->string('name')->unique();
 

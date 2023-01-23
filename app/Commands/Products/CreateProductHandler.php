@@ -4,6 +4,7 @@ namespace App\Commands\Products;
 
 use App\Models\Product;
 use App\Commands\ICommandHandler;
+use App\StorableEvents\ProductAdded;
 use Illuminate\Support\Str;
 
 class CreateProductHandler implements ICommandHandler
@@ -17,9 +18,11 @@ class CreateProductHandler implements ICommandHandler
 
     public function run(): void
     {
-        Product::create([
+        $product = Product::create([
             'uuid' => Str::uuid()->toString(),
             'name' => $this->command->getName(),
         ]);
+        // dd($product);
+        event(new ProductAdded($product));
     }
 }
